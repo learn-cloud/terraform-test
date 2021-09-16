@@ -5,7 +5,7 @@ language: bash
 # Only build pushes to master branch
 branches:
   only:
-    - master
+    - main
 
 # Export variables
 env:
@@ -24,7 +24,7 @@ jobs:
   include:
     - stage: terraform plan
       # Only run terraform validate and plan state if within a pull request
-      if: type IN (push) and branch = master
+      if: type IN (push) and branch = main
       script:
         - echo "Validating Terraform fmt"
         - terraform fmt -recursive -check
