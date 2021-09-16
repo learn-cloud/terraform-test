@@ -48,4 +48,4 @@ jobs:
         - cd wes-HA-Automation/3-tier-stateless
         - echo "Merge detected, executing changes"
         - terraform init $tf_init_cli_options
-        - terraform apply $tf_apply_cli_options
+        - terraform plan $tf_plan_cli_options
