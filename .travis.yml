@@ -1,4 +1,4 @@
-language: go
+language: bash
 before_install:
 - wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
 - unzip terraform_"$tf_version"_linux_amd64.zip
@@ -8,10 +8,17 @@ before_install:
 install: true
 env:
   global:
-  - tf_version=0.15.0
-stages:
-- test
+  - tf_version=0.15.0 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
+branches:
+  only:
+    - master
 jobs:
   include:
-  - if: "(branch = master) OR (tag IS present)"
-    script: terraform init
+    - stage: terraform plan
+      # Only run terraform validate and plan state if within a pull request
+      if: type IN (push) and branch = master
+      script:
+        - echo "Executing Terraform Plan on pull request code"
+        - terraform init $tf_init_cli_options
+        - terraform validate $tf_validation_cli_options
+        - terraform plan $tf_plan_cli_options
