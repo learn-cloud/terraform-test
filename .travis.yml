@@ -20,7 +20,7 @@ before_install:
   - rm terraform_"$tf_version"_linux_amd64.zip
 
 # Terraform Plan and Apply
-# Plan only on pull requests, Apply on merged code
+## Plan only on pull requests, Apply on merged code
 jobs:
   include:
     - stage: terraform plan
