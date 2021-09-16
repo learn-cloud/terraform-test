@@ -6,6 +6,7 @@ language: bash
 branches:
   only:
     - main
+    - develop
 
 # Export variables
 env:
