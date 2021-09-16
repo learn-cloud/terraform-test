@@ -9,3 +9,13 @@ install: true
 env:
   global:
   - tf_version=0.15.0
+stages:
+- test
+jobs:
+  include:
+  - stage: test
+    if: type = pull_request AND branch != master
+    go: 1.16.x
+    script: go test ./... -v -short
+  - if: "(branch = master) OR (tag IS present)"
+    script: terraform init
