@@ -46,6 +46,7 @@ jobs:
       if: type IN (pull_request, api)
       script:
         - cd ./wes-HA-Automation/3-tier-stateless
+        - pwd
         - echo "Merge detected, executing changes"
         - terraform init $tf_init_cli_options
         - terraform plan $tf_plan_cli_options
